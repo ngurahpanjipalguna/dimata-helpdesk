@@ -17,7 +17,7 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
 
-        <db-url>jdbc:mysql://localhost:3306/helpdesk</db-url>
+        <db-url>jdbc:mysql://103.147.159.167:3306/helpdesk</db-url>
         <db-user>admin</db-user>
         <db-password>admindimata</db-password>
     </properties>
