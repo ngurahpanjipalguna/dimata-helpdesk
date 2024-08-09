@@ -2,6 +2,7 @@ package com.dimata.helpdesk.controller.master.contact
 
 
 import com.dimata.helpdesk.TicketBody
+import com.dimata.helpdesk.core.auth.permission.Permission
 import com.dimata.helpdesk.repository.TicketRepository
 import com.dimata.helpdesk.response.BaseResponse
 import jakarta.transaction.Transactional
@@ -19,6 +20,7 @@ class TicketController(
 
     @GET
     @Path("/ticket")
+    @Permission("view_ticket")
     fun getAll(
         @QueryParam("page") page: Int?,
         @QueryParam("limit") limit: Int?,
@@ -53,6 +55,7 @@ class TicketController(
     @POST
     @Transactional
     @Path("/ticket")
+    @Permission("create_ticket")
     fun create(@Valid body: TicketBody): BaseResponse {
         val id = ticketRepository.create(body)
         return BaseResponse(
@@ -64,6 +67,7 @@ class TicketController(
     @PUT
     @Transactional
     @Path("/ticket/{id}")
+    @Permission("update_ticket")
     fun update(@RestPath id: String, @Valid body: TicketBody): BaseResponse {
         ticketRepository.update(body, id)
         return BaseResponse(
@@ -74,6 +78,7 @@ class TicketController(
 
     @GET
     @Path("/ticket/{id}")
+    @Permission("view_ticket")
     fun getById(@RestPath id: String): Response {
         return try {
             val ticket = ticketRepository.getById(id)
@@ -89,6 +94,7 @@ class TicketController(
     @DELETE
     @Path("/ticket/{id}")
     @Transactional
+    @Permission("delete_ticket")
     fun delete(@RestPath id: String): BaseResponse {
         ticketRepository.softDelete(id)
         return BaseResponse(
